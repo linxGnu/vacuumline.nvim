@@ -1,4 +1,6 @@
 local condition = require('vacuumline.condition')
+local DiagnosticWarn = require('vacuumline.provider.DiagnosticWarn')
+local DiagnosticError = require('vacuumline.provider.DiagnosticError')
 
 local function diagnostic_condition()
   return condition.standard() and condition.not_terminal()
@@ -41,7 +43,7 @@ local function generate(opts, mode)
     },
     {
       [DiagnosticWarnKey] = {
-        provider = 'DiagnosticWarn',
+        provider = DiagnosticWarn,
         condition = diagnostic_condition,
         highlight = mode == 'short' and {warning_config.background, color.background.line} or {warning_config.foreground, warning_config.background},
         separator = mode ~= 'short' and config.separator,
@@ -50,7 +52,7 @@ local function generate(opts, mode)
     },
     {
       [DiagnosticErrorKey] = {
-        provider = 'DiagnosticError',
+        provider = DiagnosticError,
         condition = diagnostic_condition,
         highlight = mode == 'short' and {error_config.background, color.background.line} or {error_config.foreground, error_config.background},
         separator = mode ~= 'short' and config.separator,

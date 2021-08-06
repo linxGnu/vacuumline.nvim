@@ -1,3 +1,4 @@
+local LspClient = require('vacuumline.provider.LspClient')
 local condition = require('vacuumline.condition')
 local vim = vim
 
@@ -12,7 +13,7 @@ local function generate(opts, mode)
   local LSP = {
     {
       [LspInfoKey] = {
-        provider = 'GetLspClient',
+        provider = LspClient,
         condition = function() return condition.check_width(format_hide_width) and condition.not_terminal() end,
         highlight = mode == 'short' and {color.foreground.line, color.background.line} or {config.foreground, config.background}
       }

@@ -1,3 +1,5 @@
+local NoOp = require('vacuumline.provider.NoOp')
+
 --[[
 This is a special segment used as a color control:
 
@@ -10,7 +12,7 @@ local function generate(opts, mode)
   local Blank = {
     {
       [BlankKey] = {
-        provider = function() end
+        provider = NoOp
       }
     }
   }

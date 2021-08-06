@@ -1,3 +1,8 @@
+local StaticValue = require('vacuumline.provider.StaticValue')
+local GitBranch = require('vacuumline.provider.GitBranch')
+local DiffAdd = require('vacuumline.provider.DiffAdd')
+local DiffModified = require('vacuumline.provider.DiffModified')
+local DiffRemove = require('vacuumline.provider.DiffRemove')
 local condition = require('vacuumline.condition')
 local vcs = require('galaxyline.provider_vcs')
 local vim = vim
@@ -20,23 +25,21 @@ local function generate(opts, mode)
   local VCS = {
     {
       [GitIconKey] = {
-        provider = function() return ' ' end,
+        provider = StaticValue(' '),
         condition = section_condition,
         highlight = {config.foreground, config.background},
       }
     },
     {
       [GitBranchKey] = {
-        provider = function()
-          return vcs.get_git_branch() .. ' '
-        end,
+        provider = GitBranch,
         condition = section_condition,
         highlight = {config.foreground, config.background},
       }
     },
     {
       [DiffAddKey] = {
-        provider = 'DiffAdd',
+        provider = DiffAdd,
         condition = section_condition,
         icon = ' ',
         highlight = {config.foreground, config.background} -- TODO: use green instead for foreground
@@ -44,7 +47,7 @@ local function generate(opts, mode)
     },
     {
       [DiffModifiedKey] = {
-        provider = 'DiffModified',
+        provider = DiffModified,
         condition = section_condition,
         icon = ' ',
         highlight = {config.foreground, config.background} -- TODO: Use yellow instead for foreground
@@ -52,7 +55,7 @@ local function generate(opts, mode)
     },
     {
       [DiffRemoveKey] = {
-        provider = 'DiffRemove',
+        provider = DiffRemove,
         condition = section_condition,
         icon = ' ',
         highlight = {config.foreground, config.background} -- TODO: use red instead for foreground

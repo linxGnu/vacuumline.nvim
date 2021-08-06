@@ -1,4 +1,6 @@
+local SearchResults = require('vacuumline.provider.SearchResults')
 local condition = require('vacuumline.condition')
+
 local vim = vim
 
 local function generate(opts, mode)
@@ -11,15 +13,7 @@ local function generate(opts, mode)
   local Search = {
     {
       [SearchResultsKey] = {
-        provider = function()
-          local search_term = vim.fn.getreg('/')
-          local search_count = vim.fn.searchcount({recompute = 1, maxcount = -1})
-          local active = vim.v.hlsearch == 1 and search_count.total > 0
-
-          if active then
-            return '/' .. search_term .. '[' .. search_count.current .. '/' .. search_count.total .. ']'
-          end
-        end,
+        provider = SearchResults,
         condition = condition.standard,
         highlight = {config.foreground, config.background},
         separator = config.separator,

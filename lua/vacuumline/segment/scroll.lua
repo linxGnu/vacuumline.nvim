@@ -1,3 +1,5 @@
+local LinePercent = require('vacuumline.provider.LinePercent')
+local ScrollBar = require('vacuumline.provider.ScrollBar')
 local condition = require('vacuumline.condition')
 
 local format_min_width = 50
@@ -15,7 +17,7 @@ local function generate(opts, mode)
   local Scroll = {
     {
       [PerCentKey] = {
-        provider = 'LinePercent',
+        provider = LinePercent,
         condition = condition.gen_check_width(format_min_width),
         highlight = mode == 'short' and short_highlight or {config.foreground, config.background},
         separator = mode ~= 'short' and config.separator,
@@ -30,7 +32,7 @@ local function generate(opts, mode)
     },
     {
       [ScrollBarKey] = {
-        provider = 'ScrollBar',
+        provider = ScrollBar,
         condition = condition.standard,
         highlight = mode == 'short' and short_highlight or {
           config.accent, function()

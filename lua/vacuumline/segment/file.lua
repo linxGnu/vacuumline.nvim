@@ -1,5 +1,10 @@
 local condition = require('vacuumline.condition')
-local fileinfo = require('galaxyline.provider_fileinfo')
+local FileIcon = require('vacuumline.provider.FileIcon')
+local FileName = require('vacuumline.provider.FileName')
+local FileSize = require('vacuumline.provider.FileSize')
+local FileTypeColor = require('vacuumline.provider.FileTypeColor')
+
+local NoOp = require('vacuumline.provider.NoOp')
 local vim = vim
 
 local format_hide_width = 45
@@ -19,16 +24,16 @@ local function generate(opts, mode)
   local File = {
     {
       [FileIconKey] = {
-        provider = 'FileIcon',
+        provider = FileIcon,
         condition = condition.standard_not_empty,
-        highlight = mode == 'short' and short_highlight or {fileinfo.get_file_icon_color, config.background},
+        highlight = mode == 'short' and short_highlight or {FileTypeColor(), config.background},
       }
     },
     {
       [FileNameKey] = {
         provider = function()
-          local name = fileinfo.get_current_file_name()
-          local size = fileinfo.get_file_size()
+          local name = FileName()
+          local size = FileSize()
 
           if mode ~= 'short' and not condition.hide_in_width() then -- truncated filename
             local len = string.len(name)
@@ -46,7 +51,7 @@ local function generate(opts, mode)
     },
     {
       [FileEndKey] = {
-        provider = function() end,
+        provider = NoOp,
         condition = condition.standard_not_empty,
         separator = mode ~= 'short' and config.separator,
         separator_highlight = {config.background, next.background}
