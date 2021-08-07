@@ -4,6 +4,20 @@ local fileinfo = require('galaxyline.provider_fileinfo')
 local lspclient = require('galaxyline.provider_lsp')
 local extension = require('galaxyline.provider_extensions')
 
+local function build_side(gls, side, segments, opts)
+  local index = 1
+  local mode = string.find(side, 'short') == 1 and 'short' or 'normal'
+
+  for _, config in ipairs(segments) do
+    local sections = config.generator(opts, mode)
+
+    for _, section in ipairs(sections) do
+      gls[side][index] = section
+      index = index + 1
+    end
+  end
+end
+
 local M = {
   get_diagnostic_error = diagnostic.get_diagnostic_error,
   get_diagnostic_warn = diagnostic.get_diagnostic_warn,
@@ -24,4 +38,9 @@ local M = {
   get_scrollbar = extension.scrollbar_instance
 }
 
+function M.get_builder(segments)
+
+end
+
+-- TODO: renderer stuff - need to expose building the galaxyline sections in a standard way
 return M

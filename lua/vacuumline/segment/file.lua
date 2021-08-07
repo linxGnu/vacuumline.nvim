@@ -3,7 +3,6 @@ local FileIcon = require('vacuumline.provider.FileIcon')
 local FileName = require('vacuumline.provider.FileName')
 local FileSize = require('vacuumline.provider.FileSize')
 local FileTypeColor = require('vacuumline.provider.FileTypeColor')
-
 local NoOp = require('vacuumline.provider.NoOp')
 local vim = vim
 

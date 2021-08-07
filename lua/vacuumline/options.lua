@@ -1,4 +1,5 @@
 local gruvbox_theme = require('vacuumline.theme.gruvbox')
+local backend = require('vacuumline.backend')
 
 local M = {}
 
@@ -7,6 +8,7 @@ local M = {}
 
 local function get_default_options(theme)
   return {
+    backend = 'galaxyline',
     separator = {
       segment = {
         left = '',
