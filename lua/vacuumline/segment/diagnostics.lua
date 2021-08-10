@@ -1,4 +1,6 @@
 local condition = require('vacuumline.condition')
+local DiagnosticHint = require('vacuumline.provider.DiagnosticHint')
+local DiagnosticInfo = require('vacuumline.provider.DiagnosticInfo')
 local DiagnosticWarn = require('vacuumline.provider.DiagnosticWarn')
 local DiagnosticError = require('vacuumline.provider.DiagnosticError')
 
@@ -25,7 +27,7 @@ local function generate(opts, mode)
   local Diagnostics = {
     {
       [DiagnosticHintKey] = {
-        provider = 'DiagnosticHint',
+        provider = DiagnosticHint,
         condition = diagnostic_condition,
         highlight = mode == 'short' and {hint_config.background, color.background.line} or {hint_config.foreground, hint_config.background},
         separator = mode ~= 'short' and config.separator,
@@ -34,7 +36,7 @@ local function generate(opts, mode)
     },
     {
       [DiagnosticInfoKey] = {
-        provider = 'DiagnosticInfo',
+        provider = DiagnosticInfo,
         condition = diagnostic_condition,
         highlight = mode == 'short' and {info_config.background, color.background.line} or {info_config.foreground, info_config.background},
         separator = mode ~= 'short' and config.separator,

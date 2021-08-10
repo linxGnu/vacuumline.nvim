@@ -4,11 +4,10 @@ local DiffAdd = require('vacuumline.provider.DiffAdd')
 local DiffModified = require('vacuumline.provider.DiffModified')
 local DiffRemove = require('vacuumline.provider.DiffRemove')
 local condition = require('vacuumline.condition')
-local vcs = require('galaxyline.provider_vcs')
 local vim = vim
 
 local function section_condition()
-  return condition.standard() and condition.buffer_not_empty() and condition.hide_in_width() and vcs.get_git_branch()
+  return condition.standard() and condition.buffer_not_empty() and condition.hide_in_width() and condition.check_git_workspace()
 end
 
 local function generate(opts, mode)

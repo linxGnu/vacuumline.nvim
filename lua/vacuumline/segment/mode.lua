@@ -1,6 +1,6 @@
 local ModeIndicator = require('vacuumline.provider.ModeIndicator')
 local ModeLabel = require('vacuumline.provider.ModeLabel')
-local condition = require('galaxyline.condition')
+local condition = require('vacuumline.condition')
 local vim = vim
 
 local function generate(opts, mode)
@@ -13,7 +13,7 @@ local function generate(opts, mode)
   local ModeIndicatorKey = 'ModeIndicator_' .. mode
   local ModeLabelKey = 'ModeLabel' .. mode
 
-  local galaxy_label = 'Galaxy' .. ModeIndicatorKey
+  local galaxy_label = 'Galaxy' .. ModeIndicatorKey -- FIXME
 
   local Mode = {
     {

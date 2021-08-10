@@ -1,13 +1,16 @@
-local condition = require('galaxyline.condition')
 local vim = vim
 
 local M = {}
 
--- galaxyline conditions
-M.buffer_not_empty = condition.buffer_not_empty
-M.hide_in_width = condition.hide_in_width
+function M.check_git_workspace()
+  local filepath = vim.fn.expand('%:p:h')
+  local gitdir = vim.fn.finddir('.git', filepath .. ';')
+  return gitdir and #gitdir > 0 and #gitdir < #filepath
+end
 
--- extensions
+function M.buffer_not_empty()
+  return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
+end
 
 function M.check_width(width)
   return vim.fn.winwidth(0) > width
@@ -17,6 +20,10 @@ function M.gen_check_width(width)
   return function()
     return M.check_width(width)
   end
+end
+
+function M.hide_in_width()
+  return M.check_width(50)
 end
 
 -- Guarantees that mode will never be hidden
